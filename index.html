@@ -5,6 +5,7 @@
     <title>Lista Telefonica</title>
     <link rel="stylesheet" href="bootstrap/bootstrap.css">
     <script src="angular/angular.js"></script>
+    <script src="angular/angular-locale_pt-br.js"></script>
     <script src="angular/angular-messages.js"></script>
     <style>
         .selecionado {
@@ -19,12 +20,12 @@
                 
             ];
             $scope.operadoras = [
-                {nome: "Oi", codigo: 14, categoria: "Celular"},
-                {nome: "Vivo", codigo: 13, categoria: "Celular"},
-                {nome: "Tim", codigo: 15, categoria: "Celular"},
-                {nome: "Oi", codigo: 16, categoria: "Celular"},
-                {nome: "Gvt", codigo: 25, categoria: "Fixo"},
-                {nome: "Embratel", codigo: 21, categoria: "Fixo"}
+                {nome: "Oi", codigo: 14, categoria: "Celular", preco: 99},
+                {nome: "Vivo", codigo: 13, categoria: "Celular", preco: 50},
+                {nome: "Tim", codigo: 15, categoria: "Celular", preco: 60},
+                {nome: "Sky", codigo: 16, categoria: "Celular", preco: 150},
+                {nome: "Gvt", codigo: 25, categoria: "Fixo", preco: 80},
+                {nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 40}
             ];
 
             $scope.cores = [
@@ -108,7 +109,7 @@
                 <input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/">
             </div>
             <div class="mb-3">
-                <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+                <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome + ' (' + (operadora.preco | currency) + ')' group by operadora.categoria for operadora in operadoras">
                     <option value="">Selecione uma operadora</option>
                 </select>
             </div>
@@ -118,8 +119,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <input class="form-control" type="date" ng-model="contato.data" name="nome" placeholder="data" ng-required="true" ng-minlength="10">
-            </div>    
+                <input class="form-control" type="date" ng-model="contato.data" name="data" placeholder="data" ng-required="true">
+            </div>
         </form>
         <button class="btn btn-success" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar contato</button>
         <button class="btn btn-danger" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar contatos</button>
